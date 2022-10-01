@@ -1,0 +1,49 @@
+name: Deploy To VPS Server
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleaning up the directory
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: | 
+            rm -rf /bots/dad-bot/*
+            pm2 stop dad
+
+      - uses: actions/checkout@v2
+      - name: Copy files to directory
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          target: "/bots/dad-bot"
+          source: "./"
+
+      - name: Build
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd /bots/dad-bot
+            yarn
+            rm -rf .github
+            pm2 start dad
+
+      - uses: fateyan/action-discord-notifier@v1
+        with:
+          message-title: New Deployment
+          webhook: https://discordapp.com/api/webhooks/1004549532492767293/TdNrHUrKEtZ4MgKf1jYMoANu3cUwiv3zrmEBRiyCAPNi_3QyaYmmgN7y2aQlOQsf8pSq
