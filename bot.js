@@ -57,7 +57,7 @@ client.on('message', async (message) => {
 		return message.channel.send(`אתה מאומץ`)
 	}
 
-	const rnd = getRandomInt(1, 7)
+	const rnd = getRandomInt(1, 30)
 	if (rnd == 1) {
 		return message.channel.send('אתה מאומץ')
 	}
