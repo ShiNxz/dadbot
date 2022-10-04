@@ -59,10 +59,13 @@ client.on('message', async (message) => {
 
 	const rnd = getRandomInt(1, 30)
 	if (rnd == 1) {
-		return message.channel.send('אתה מאומץ')
+		message.channel.send('אתה מאומץ')
+		return setTimeout(() => {
+			message.channel.send('סליחה')
+		}, 2500)
 	}
 })
- 
+
 client.on('message', (message) => {
 	let args = message.content.substring(PREFIX.length).split(' ')
 	if (message.author.bot) return
