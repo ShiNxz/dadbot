@@ -57,12 +57,9 @@ client.on('message', async (message) => {
 		return message.channel.send(`אתה מאומץ`)
 	}
 
-	const rnd = getRandomInt(1, 30)
+	const rnd = getRandomInt(1, 100)
 	if (rnd == 1) {
 		message.channel.send('אתה מאומץ')
-		return setTimeout(() => {
-			message.channel.send('סליחה')
-		}, 2500)
 	}
 })
 
