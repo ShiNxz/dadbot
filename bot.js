@@ -42,6 +42,8 @@ client.on('message', async (message) => {
 	if (message.channel.type === 'dm') return
 	if (message.channel.parentID === '818561480647376896') return
 
+	if (message.content.includes('@everyone') || message.content.includes('@here')) return
+
 	const args2 = message.content.trim().split(/ +/g)
 	if (args2[0].toLowerCase() == "i'm" || args2[0].toLowerCase() == 'אני') {
 		if (message.content === 'אני אבא') return message.channel.send('לא אתה לא, אני אבא!')
