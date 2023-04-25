@@ -41,7 +41,7 @@ client.on('message', async (message) => {
 	if (message.author.bot) return
 	if (message.channel.type === 'dm') return
 	if (message.channel.parentID === '818561480647376896') return
-	if (message.mentions.roles.size > 0 || message.mentions.users.size > 0) return message.channel.send('אתה מאומץ')
+	if (message.mentions.roles.size > 0 || message.mentions.users.size > 0) return
 	if (message.content.includes('@everyone') || message.content.includes('@here')) return
 
 	const args2 = message.content.trim().split(/ +/g)
