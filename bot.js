@@ -45,6 +45,15 @@ client.on('message', async (message) => {
 	if (message.content.includes('@everyone') || message.content.includes('@here')) return
 
 	const args2 = message.content.trim().split(/ +/g)
+
+	const tag =
+		message.content.includes('>') ||
+		message.content.includes('<') ||
+		message.content.includes('@') ||
+		message.content.includes('#')
+
+	if (tag) return
+
 	if (args2[0].toLowerCase() == "i'm" || args2[0].toLowerCase() == 'אני') {
 		if (message.content === 'אני אבא') return message.channel.send('לא אתה לא, אני אבא!')
 		return message.channel.send(`שלום ${args2.slice(1).join(' ')}, אני אבא!`)
